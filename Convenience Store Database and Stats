@@ -1,0 +1,26 @@
+--Create a convenience store database
+
+CREATE TABLE store (id INTEGER PRIMARY KEY, name TEXT, quantity_sold INTEGER, total_sales_dollars INTEGER, selling_price INTEGER, profit INTEGER); 
+
+INSERT INTO store VALUES (1, "shampoo", 20, 140, 7, 80); 
+INSERT INTO store VALUES (2, "conditioner", 18, 144, 8, 90);
+INSERT INTO store VALUES (3, "soap", 50, 250, 5, 200);
+INSERT INTO store VALUES (4, "hairspray", 10, 100, 10, 80);
+INSERT INTO store VALUES (5, "razors", 60, 180, 3, 150);
+INSERT INTO store VALUES (6, "floss", 21, 42, 2, 36.75);
+INSERT INTO store VALUES (7, "toothpaste", 40, 200, 5, 160);
+INSERT INTO store VALUES (8, "toothbrushes", 40, 200, 5, 160);
+INSERT INTO store VALUES (9, "deodorant", 55, 440, 8, 330);
+INSERT INTO store VALUES (10, "ponytails", 12, 48, 4, 42);
+INSERT INTO store VALUES (11, "perfume", 25, 375, 15, 325);
+INSERT INTO store VALUES (12, "tissues", 13, 78, 6, 65);
+INSERT INTO store VALUES (13, "lotion", 45, 540, 12, 450);
+INSERT INTO store VALUES (14, "blankets", 22, 330, 15, 220);
+INSERT INTO store VALUES (15, "pillows", 25, 250, 10, 200);
+SELECT * FROM store;
+
+--display the database ordered by profit
+SELECT * FROM store ORDER BY profit;
+
+--display the total profit in this database
+SELECT SUM(profit) FROM store;
