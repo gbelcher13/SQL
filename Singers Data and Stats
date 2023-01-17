@@ -1,0 +1,27 @@
+CREATE TABLE singers (id INTEGER PRIMARY KEY, name TEXT, age INTEGER);
+
+INSERT INTO singers (name, age) VALUES ("Ariana Grande", 29);
+INSERT INTO singers (name, age) VALUES ("Justin Bieber", 28);
+INSERT INTO singers (name, age) VALUES ("Tove Lo", 35);
+INSERT INTO singers (name, age) VALUES ("Nick Jonas", 30);
+INSERT INTO singers (name, age) VALUES ("The Weeknd", 32);
+
+CREATE TABLE songs (id INTEGER PRIMARY KEY, singer_id INTEGER, name TEXT);
+
+INSERT INTO songs (singer_id, name) VALUES (1, "Break Free");
+INSERT INTO songs (singer_id, name) VALUES (2, "Sorry");
+INSERT INTO songs (singer_id, name) VALUES (3, "How Long");
+INSERT INTO songs (singer_id, name) VALUES (4, "Toothbrush");
+INSERT INTO songs (singer_id, name) VALUES (5, "In the Night");
+
+CREATE TABLE collabs (id INTEGER PRIMARY KEY, singer1_id INTEGER, singer2_id INTEGER);
+
+INSERT INTO collabs (singer1_id, singer2_id) VALUES (1,2);
+INSERT INTO collabs (singer1_id, singer2_id) VALUES (3,4);
+INSERT INTO collabs (singer1_id, singer2_id) VALUES (1,5);
+SELECT * FROM singers;
+SELECT * FROM songs;
+SELECT * FROM collabs;
+
+--form a table that uses JOIN to show collab artists from the data
+SELECT a.name, b.name AS "collab artist" FROM collabs JOIN singers a ON collabs.singer1_id = a.id JOIN singers b ON collabs.singer2_id = b.id;
