@@ -1,0 +1,28 @@
+#In this SQL code, I am querying a database that's holding Netflix data to answer questions about the data. 
+
+#1. Limit everything from the database to 5.
+SELECT * FROM "CharlotteChaze/BreakIntoTech"."netflix_people" LIMIT 5;
+
+#2. Join everything from the two databases.
+SELECT * FROM "CharlotteChaze/BreakIntoTech"."netflix_people" FULL OUTER JOIN "CharlotteChaze/BreakIntoTech"."netflix_titles_info" ON "netflix_people"."show_id" = "netflix_titles_info"."show_id";
+
+#3. Join the id's, director, title, and duration from the two databases.
+SELECT people.show_id, people.director, titles.title, titles.duration FROM "CharlotteChaze/BreakIntoTech"."netflix_people" people LEFT JOIN "CharlotteChaze/BreakIntoTech"."netflix_titles_info" titles ON people.show_id = titles.show_id;
+
+#4. How many movie titles are there in the database? (movies only, not tv shows)
+SELECT COUNT(*) FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info" WHERE type='Movie';
+
+#5. When was the most recent batch of tv shows and/or movies added to the database?
+SELECT max(date(date_added)) FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info";
+
+#6. List all the movies and tv shows in alphabetical order.
+SELECT title FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info" ORDER BY title asc;
+
+#7. Who was the director for the movie Bright Star?
+SELECT people.director, titles.title From "CharlotteChaze/BreakIntoTech"."netflix_people" people LEFT JOIN "CharlotteChaze/BreakIntoTech"."netflix_titles_info" titles ON people.show_id = titles.show_id WHERE title='Bright Star';
+
+#8. What is the oldest movie(s) in the database and what year was it made?
+SELECT title, release_year FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info" WHERE type='Movie' ORDER BY release_year asc LIMIT 2;
+
+#9. What is the oldest movie(s) in the database and what year was it made?
+SELECT title, release_year FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info" WHERE type = 'Movie' AND release_year <= (SELECT MIN(release_year) FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info" WHERE type = 'Movie');
