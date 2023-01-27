@@ -30,3 +30,21 @@ SELECT Product, sum(Quantity)as total_sold, sum(Quantity)*price as Revenue FROM 
 
 #7 How many customers ordered more than 2 products at a time, and what was the average amount spent for those customers?
 SELECT COUNT(distinct cust.acctnum), AVG(quantity*price) FROM BIT_DB.FebSales Feb LEFT JOIN BIT_DB.customers cust ON Feb.orderid=cust.order_id WHERE Feb.Quantity>2 AND length(orderid) = 6 AND orderid <> 'Order ID';
+
+#8 Show all orders that were placed between 02/13/19 and 02/18/19.
+SELECT orderdate FROM BIT_DB.FebSales WHERE orderdate between '02/13/19 00:00' AND '02/18/19 00:00';
+
+#9 Show the location of the order that was placed on 02/18/19 at 01:35.
+SELECT location FROM BIT_DB.FebSales WHERE orderdate = '02/18/19 01:35';
+
+#10 Show the total quantity of sales from 02/18/19.
+SELECT sum(quantity) FROM BIT_DB.FebSales WHERE orderdate like '02/18/19%';
+
+#11 Show the products that include the name "batteries".
+SELECT distinct Product FROM BIT_DB.FebSales WHERE Product like '%Batteries%';
+
+#12 Show the product and it's price for all prices that end in '.99'. 
+SELECT distinct Product, Price FROM BIT_DB.FebSales WHERE Price like '%.99';
+
+#13 Show all of the products and their total quantity sold in Los Angeles. 
+SELECT distinct Product, sum(Quantity) FROM BIT_DB.FebSales WHERE location like '%Los Angeles%' GROUP BY Product;
