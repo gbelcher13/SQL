@@ -1,0 +1,60 @@
+# For this project, I downloaded Spotify data from Kaggle.
+# Then I created a table to insert Spotify data into.
+# Finally, I performed analytics on the data using SQL. 
+
+#Creating the table:
+CREATE TABLE BIT_DB.Spotifydata (
+id integer PRIMARY KEY,
+artist_name varchar NOT NULL,
+track_name varchar NOT NULL,
+track_id varchar NOT NULL,
+popularity integer NOT NULL,
+danceability decimal(4,3) NOT NULL,
+energy decimal(4,3) NOT NULL,
+song_key integer NOT NULL,
+loudness decimal(5,3) NOT NULL,
+song_mode integer NOT NULL,
+speechiness decimal(5,4) NOT NULL,
+acousticness decimal(6,5) NOT NULL,
+instrumentalness text NOT NULL,
+liveness decimal(5,4) NOT NULL,
+valence decimal(4,3) NOT NULL,
+tempo decimal(6,3) NOT NULL,
+duration_ms integer NOT NULL,
+time_signature integer NOT NULL )
+
+#Then I inserted the Spotify Data .csv into the table.
+
+#Next, I explored the data using the following SQL.
+
+SELECT * FROM Spotifydata;
+
+#Top 10 songs and their artist by popularity.
+SELECT artist_name, track_name, popularity FROM Spotifydata ORDER BY popularity DESC LIMIT 10;
+
+#Top 10 songs by popularity compared to their danceability.
+SELECT danceability, popularity FROM Spotifydata ORDER BY popularity DESC LIMIT 10;
+
+#Top 10 songs by popularity adding a 'comparison' column to see popularity * danceability.
+SELECT track_name, popularity, danceability, SUM(popularity*danceability) as comparison FROM Spotifydata GROUP BY track_name ORDER BY popularity DESC LIMIT 10;
+
+#Order artists by their average popularity
+SELECT distinct artist_name, AVG(popularity) as average_popularity FROM Spotifydata GROUP BY artist_name ORDER BY average_popularity DESC;
+
+#Average danceability by artist.
+SELECT distinct artist_name, AVG(danceability)as average_danceability  FROM Spotifydata GROUP BY artist_name ORDER BY average_danceability DESC;
+
+#Average danceability overall.
+SELECT AVG(danceability) as average_danceability_overall FROM Spotifydata;
+
+#Which artist released the longest song and what was the song?
+SELECT artist_name, track_name, duration_ms FROM Spotifydata ORDER BY duration_ms DESC limit 1;
+
+#Average liveness overall.
+SELECT AVG(liveness) FROM Spotifydata;
+
+#How many tracks does each artist have on the list?
+SELECT distinct artist_name, COUNT(track_name) as tracks FROM Spotifydata GROUP BY artist_name ORDER BY tracks DESC;
+
+#How many tracks have a popularity over 90?
+SELECT COUNT(popularity) as over_90 FROM Spotifydata WHERE popularity > 90;
